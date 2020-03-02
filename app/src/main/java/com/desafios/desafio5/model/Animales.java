@@ -19,4 +19,9 @@ public class Animales {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Animales(String url, String name) {
+        this.url = url;
+        this.name = name;
+    }
 }
