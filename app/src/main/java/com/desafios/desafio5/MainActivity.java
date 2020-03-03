@@ -1,6 +1,7 @@
 package com.desafios.desafio5;
 
         import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.GridLayoutManager;
         import androidx.recyclerview.widget.LinearLayoutManager;
         import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +26,12 @@ public class MainActivity extends AppCompatActivity implements AnimalAdapter.OnI
         mAdapter = new AnimalAdapter(initializeAnimales(),this,this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       // recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        GridLayoutManager gridLayoutManager;
+        gridLayoutManager = new GridLayoutManager(this,2);
+        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
     }
 
