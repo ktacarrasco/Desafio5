@@ -22,7 +22,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ViewHolder
     private LayoutInflater mLayoutInflater;
     private List<Animales> animalesList = new ArrayList<>();//data set
     private Context mContext;
-    private AdapterView.OnItemClickListener listener;
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -50,7 +50,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ViewHolder
         return animalesList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final ImageView imageView;
         private final TextView textView;
@@ -59,12 +59,41 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.ViewHolder
             super(itemView);
             imageView = itemView.findViewById(R.id.imagen);
             textView = itemView.findViewById(R.id.text);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.OnClick(this, getNameByPosition(getAdapterPosition()),getURLByPosition(getAdapterPosition()));
         }
     }
 
-    public AnimalAdapter(List<Animales> animalesList, Context mContext) {
+    private String getNameByPosition(int position){
+        if (position != RecyclerView.NO_POSITION){
+            return  animalesList.get(position).getName();
+        }else{
+            return "no Hay";
+        }
+    }
+
+    private String getURLByPosition(int position){
+        if (position != RecyclerView.NO_POSITION){
+            return  animalesList.get(position).getUrl();
+        }else{
+            return "no Hay";
+        }
+    }
+
+    public AnimalAdapter( List<Animales> animalesList, Context mContext, OnItemClickListener listener) {
+       // this.mLayoutInflater = mLayoutInflater;
         this.animalesList = animalesList;
         this.mContext = mContext;
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        public void OnClick(AnimalAdapter.ViewHolder viewHolder, String nameAnimal, String URL);
     }
 }
 

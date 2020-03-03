@@ -5,13 +5,14 @@ package com.desafios.desafio5;
         import androidx.recyclerview.widget.RecyclerView;
 
         import android.os.Bundle;
+        import android.widget.Toast;
 
         import com.desafios.desafio5.model.Animales;
 
         import java.util.ArrayList;
         import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements AnimalAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private AnimalAdapter mAdapter;
@@ -20,8 +21,8 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
-        initializeAnimales();
-        mAdapter = new AnimalAdapter(initializeAnimales(),this);
+        //initializeAnimales();
+        mAdapter = new AnimalAdapter(initializeAnimales(),this,this);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -37,5 +38,19 @@ public class MainActivity extends AppCompatActivity  {
         animalesList.add(animales2);
         animalesList.add(animales3);
         return animalesList;
+    }
+
+
+    private void instanceDetailFragment(String name, String url){
+        DetailFragment detailFragment = DetailFragment.newInstance(name,url);
+        getSupportFragmentManager().beginTransaction().add(R.id.frameLayout,detailFragment,"DETAILFRAGMENT").commit();
+
+    }
+
+    @Override
+    public void OnClick(AnimalAdapter.ViewHolder viewHolder, String nameAnimal, String URL) {
+
+        Toast.makeText(this,nameAnimal,Toast.LENGTH_SHORT).show();
+        instanceDetailFragment(nameAnimal,URL);
     }
 }
