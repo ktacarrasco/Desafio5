@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="45sp"
-        android:text="Estoy mostrando un fragmento" />
+        android:text="" />
     <ImageView
         android:id="@+id/imagenFrag"
         android:layout_width="match_parent"
